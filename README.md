@@ -3,6 +3,18 @@
 A new Flutter project.
 
 ## Getting Started
+/*--- SIZE ANY  WIDGET --*/
+GlobalKey key = GlobalKey();
+ YourWidget(
+  key: key,
+  // other widget properties
+)
+ onPressed: () {
+            // Access the RenderBox and get the size
+            RenderBox renderBox = key.currentContext.findRenderObject() as RenderBox;
+            Size size = renderBox.size;
+            print("Widget size: $size");
+          },
 
 This project is a starting point for a Flutter application.
 
