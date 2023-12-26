@@ -1,7 +1,3 @@
-# getsetup
-
-A new Flutter project.
-
 ## Getting Started
 /*--- SIZE ANY  WIDGET --*/
 GlobalKey key = GlobalKey();
@@ -15,14 +11,45 @@ GlobalKey key = GlobalKey();
             Size size = renderBox.size;
             print("Widget size: $size");
           },
+------------ Firebase database   ----- 
+ cloud_firestore: ^3.5.1
+/*-------- Add Data  -----*/
+Future addPlaceData() async {
+    final docData = FirebaseFirestore.instance.collection('register').doc();
 
-This project is a starting point for a Flutter application.
+    final json = RegisterModel(
+       id: docData.id,
+      email: email.text,
+      password: password.text,
+    );
+    await docData.set(json.toJson());
+  }
+  }
+ 
+ ==> get Database 
+  Future<void> getData() async {
+    CollectionReference collectionReference =
+        FirebaseFirestore.instance.collection('register');
+    QuerySnapshot snapshot = await collectionReference.get();
+    registerModel = snapshot.docs
+        .map((e) => RegisterModel.fromJson(e.data() as Map<String, dynamic>))
+        .toList();
+    print(registerModel.length);
+    print(registerModel[0].password);
+  }
 
-A few resources to get you started if this is your first Flutter project:
+  /*---  check  value */
+   for (int i = 0; i < registerModel.length; i++) {
+          if (registerModel[i].email != email.text) {
+            Fluttertoast.showToast(msg: "Your EmailAddress is Wrong.");
+          } else if (registerModel[i].password != password.text) {
+            Fluttertoast.showToast(msg: "Your Password is Wrong.");
+          } else {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const WelcomeView()),
+                (route) => false);
+          }
+        }
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ 
