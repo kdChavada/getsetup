@@ -57,5 +57,28 @@ Future addPlaceData() async {
                 (route) => false);
           }
         }
+----------------------------------        
+/*TIMER*/
+"${h.toString().padLeft(2, '0')} : ${m.toString().padLeft(2, '0')} : ${s.toString().padLeft(2, '0')}",
+  late Timer _timer;
+  int s = 1;
+  int m = 00;
+  int h = 00;
+
+  startUserTimer() {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(oneSec, (Timer timer) {
+      setState(() {
+        s += 1;
+        if (s == 59) {
+          s = 1;
+          m += 1;
+        }
+        if (m == 59) {
+          h += 1;
+        }
+      });
+    });
+  }
 
  
