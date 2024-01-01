@@ -1,4 +1,10 @@
 ## Getting Started
+
+/*Short*/
+var nlist = [11,4,2,1,5];
+nlist.sort();
+print(nlist); // [1, 2, 4, 5, 11] 
+-----------------------------------------------------
 /*--- SIZE ANY  WIDGET --*/
 GlobalKey key = GlobalKey();
  YourWidget(
